@@ -15,16 +15,31 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 - **SQL** – linguagem utilizada nas consultas e criação das tabelas  
 
 ##  Como Rodar o Projeto
+
+### 1. BigQuery – Criação de Tabelas e ETL
 1. Acesse o **Google BigQuery** e conecte-se ao dataset da **Super Store**.  
-2. Importe a tabela de vendas da Super Store conforme o roteiro.  
-3. Identifique valores nulos, duplicados e inconsistências conforme as etapas do processo ETL.  
-4. Realize a pesquisa de concorrentes via **Planilhas Google (IMPORTHTML)** ou **Python (BeautifulSoup)**.  
-5. Modele as tabelas de **fatos** e **dimensões**, utilizando identificadores únicos (IDs).  
-6. Crie as tabelas no **BigQuery**, estruturando o modelo relacional conforme planejado.  
-7. Projete o **pipeline de atualização de dados**, determinando a sequência de atualização entre as tabelas.  
+2. Importe a tabela de vendas da Super Store.  
+3. Execute consultas SQL para:
+   - Identificar valores nulos e duplicados;  
+   - Padronizar variáveis categóricas;  
+   - Validar consistência de variáveis numéricas.  
+4. Modele e crie as **tabelas de dimensões** (clientes, produtos, regiões, modos de envio, etc.) com IDs únicos.  
+5. Crie a **tabela fato** contendo métricas de vendas, lucro, quantidade e desconto, referenciando os IDs das dimensões.  
+6. Projete o **pipeline conceitual de atualização de dados**, definindo a ordem de atualização entre as tabelas (dimensões antes da fato).
+
+### 2. Python / Google Colab – Web Scraping
+1. Abra o notebook em **Google Colab** disponível na pasta `notebooks/`.  
+2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando **BeautifulSoup**.  
+3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
 
 ### Observações
-- Dados provenientes do dataset da Super Store e de fontes públicas (Wikipedia).  
+- A tabela da Super Store é fictícia, enquanto a tabela de concorrentes foi obtida via web scraping do site wikipedia.  
+- Todas as transformações realizadas foram **conceituais**, voltadas à padronização e organização dos dados.  
+- Para reproduzir o projeto, basta seguir a sequência acima no BigQuery e executar o notebook de Python.  
+
+
+### Observações
+- Dados provenientes do dataset fictício da Super Store e de fontes públicas (Wikipedia).  
 - A limpeza realizada foi **conceitual**, voltada à padronização e estruturação dos dados para consultas.  
 - Não foram inseridos dados novos nem removidos valores nulos — apenas identificados e tratados para padronização.  
 
@@ -49,8 +64,7 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 - Escolha do **modelo estrela (Star Schema)**, que facilita consultas e análises no contexto de Business Intelligence.
 
 ### 4. Pipeline de Atualização
-- Definição da sequência de atualização das tabelas, considerando dependências:
-  - As tabelas **dimensão** devem ser atualizadas **antes** da tabela **fato**.  
+- Definição da sequência de atualização das tabelas, considerando dependências;  
   - Projeção de um **pipeline conceitual** de atualização diária dos dados.  
 
 ##  Consultas SQL Utilizadas
@@ -62,13 +76,6 @@ Foram criadas e executadas consultas SQL no **BigQuery** para:
 
 *(As queries completas estão documentadas na ficha técnica.)*
 
-##  Estrutura do Repositório
-Rota-01-Estrutura-de-Dados/  
-│  
-├─ datasets/               # Bases de dados utilizadas (Super Store e concorrentes)  
-├─ dashboards_screenshots/ # Capturas de tela da modelagem ou esquema relacional  
-├─ README.md               # Documento explicativo do projeto  
-├─ .gitignore (opcional)   # Arquivos a serem ignorados no Git  
 
 ## Autor
 **Leticia Gama de Souza**  
