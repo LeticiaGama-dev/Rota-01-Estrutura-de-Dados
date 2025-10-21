@@ -27,10 +27,10 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 5. Crie a **tabela fato** contendo métricas de vendas, lucro, quantidade e desconto, referenciando os IDs das dimensões.  
 6. Projete o **pipeline conceitual de atualização de dados**, definindo a ordem de atualização entre as tabelas (dimensões antes da fato).
 
+
 ### 2. Python / Google Colab – Web Scraping
 
-
-1. Abra o notebook disponível em `ROTAS01_ETL.ipynb`.
+1. Abra o notebook disponível em `notebooks/ROTAS01_ETL.ipynb`.
 2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando BeautifulSoup.
 3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
 
