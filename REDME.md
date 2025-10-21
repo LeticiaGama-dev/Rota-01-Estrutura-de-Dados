@@ -136,20 +136,19 @@ df_concorrentes.to_csv('concorrentes.csv', index=False)
 
 ### Dashboard 1 – Visão Geral de Vendas
 
-* **O que mostra:** resumo das vendas da Super Store por **categoria**, **subcategoria** e **região**.
-* **Objetivo:** permite análise rápida do desempenho por produto e região, facilitando a identificação de padrões de vendas.
+* Apresenta uma visão geral do projeto e do conjunto de dados.
+* Função: Servir como introdução ao escopo do projeto
 * **Link do print:** [Dash1-Rota 01](dashboards_screenshots/Dash1-Rota%2001.jpg)
 
 ### Dashboard 2 – Tabelas de Dimensões
 
-* **O que mostra:** exemplos das tabelas de **dimensões** criadas, incluindo **clientes**, **produtos**, **regiões** e **modos de envio**.
-* **Objetivo:** demonstra a organização dos dados em tabelas separadas para consultas eficientes, evitando duplicidade e facilitando o ETL.
+* Esta imagem detalha a lógica e a ordem de execução do pipeline de dados, planejado para uma implementação futura.
+* Função: Definir o fluxo de automatização para a atualização das tabelas, garantindo a integridade e a concorrência dos dados.
 * **Link do print:** [Dash2-Rota 01](dashboards_screenshots/Dash2-Rota%2001.jpg)
 
 Dashboard 3 – Star Schema
 
 O que mostra: modelo de tabela fato e tabelas de dimensões da Super Store.
-
 Objetivo: demonstra a estrutura de dados que sustenta todas as análises e dashboards, mostrando os relacionamentos 1:N entre dimensões e a tabela fato.
 
 * **Link do print:** [Star Schema](dashboards_screenshots/Star-Schema.jpg)
