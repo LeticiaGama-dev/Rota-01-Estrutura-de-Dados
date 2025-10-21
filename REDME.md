@@ -146,8 +146,14 @@ df_concorrentes.to_csv('concorrentes.csv', index=False)
 * **Objetivo:** demonstra a organização dos dados em tabelas separadas para consultas eficientes, evitando duplicidade e facilitando o ETL.
 * **Link do print:** [Dash2-Rota 01](dashboards_screenshots/Dash2-Rota%2001.jpg)
 
----
+Dashboard 3 – Star Schema
 
+O que mostra: modelo de tabela fato e tabelas de dimensões da Super Store.
+
+Objetivo: demonstra a estrutura de dados que sustenta todas as análises e dashboards, mostrando os relacionamentos 1:N entre dimensões e a tabela fato.
+
+Link do print: Star Schema
+---
 ### Observações
 
 * As queries SQL são exemplos representativos do processo de **criação das tabelas** e integração dos dados.
