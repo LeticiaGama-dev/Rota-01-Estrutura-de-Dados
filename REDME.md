@@ -28,8 +28,10 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 6. Projete o **pipeline conceitual de atualização de dados**, definindo a ordem de atualização entre as tabelas (dimensões antes da fato).
 
 ### 2. Python / Google Colab – Web Scraping
-1. Abra o notebook em **Google Colab** disponível na pasta `notebooks/`.  
-2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando **BeautifulSoup**.  
+
+
+1. Abra o notebook disponível em `notebooks/Rota01_WebScraping_Concorrentes.ipynb`.
+2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando BeautifulSoup.
 3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
 
 ### Observações
