@@ -152,7 +152,7 @@ O que mostra: modelo de tabela fato e tabelas de dimensões da Super Store.
 
 Objetivo: demonstra a estrutura de dados que sustenta todas as análises e dashboards, mostrando os relacionamentos 1:N entre dimensões e a tabela fato.
 
-* **Link do print:** [Star-Schema](dashboards_screenshots/Star-Schema-Rota%2001.jpg)
+* **Link do print:** [Star Schema](dashboards_screenshots/Star-Schema.jpg)
 ---
 ### Observações
 
