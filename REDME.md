@@ -70,6 +70,6 @@ Rota-01-Estrutura-de-Dados/
 ├─ README.md               # Documento explicativo do projeto  
 ├─ .gitignore (opcional)   # Arquivos a serem ignorados no Git  
 
-## Contato: www.linkedin.com/in/leticia-gama-code
-```
-
+## Autor
+**Leticia Gama de Souza**  
+[LinkedIn](https://www.linkedin.com/in/leticia-gama-code) | [GitHub](https://github.com/LeticiaGama-dev)
