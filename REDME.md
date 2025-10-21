@@ -67,15 +67,93 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 - Definição da sequência de atualização das tabelas, considerando dependências;  
   - Projeção de um **pipeline conceitual** de atualização diária dos dados.  
 
-##  Consultas SQL Utilizadas
-Foram criadas e executadas consultas SQL no **BigQuery** para:
-- Identificação de nulos e duplicatas;
-- Padronização de variáveis categóricas;
-- Criação das tabelas de dimensões e da tabela fato;
-- Relacionamento entre as tabelas utilizando IDs.  
+---
 
-*(As queries completas estão documentadas na ficha técnica.)*
+##  Códigos / Queries Relevantes
 
+### 1. SQL – Criação das Tabelas de Dimensões
+
+* **O que faz:** cria tabelas únicas para cada dimensão (clientes, produtos, regiões, modos de envio) com IDs exclusivos.
+
+```sql
+-- Exemplo: tabela dimensão Cliente
+CREATE TABLE dimensao_cliente AS
+SELECT DISTINCT
+    customer_id AS cliente_id,
+    customer_name,
+    segment,
+    city,
+    state,
+    country
+FROM superstore_vendas;
+```
+
+### 2. SQL – Criação da Tabela Fato
+
+* **O que faz:** cria tabela fato de vendas, referenciando os IDs das dimensões e agregando métricas de interesse.
+
+```sql
+-- Exemplo: tabela fato Vendas
+CREATE TABLE fato_vendas AS
+SELECT
+    f.order_id,
+    f.order_date,
+    c.cliente_id,
+    p.produto_id,
+    r.regiao_id,
+    f.quantity,
+    f.sales,
+    f.profit,
+    f.discount
+FROM superstore_vendas f
+JOIN dimensao_cliente c ON f.customer_id = c.cliente_id
+JOIN dimensao_produto p ON f.product_id = p.produto_id
+JOIN dimensao_regiao r ON f.region = r.regiao_nome;
+```
+
+### 3. Python / Colab – Web Scraping de Concorrentes
+
+* **O que faz:** extrai dados de concorrentes da Wikipedia e gera CSV para integração no BigQuery.
+
+```python
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+url = "https://pt.wikipedia.org/wiki/Lista_de_multinacionais"
+resposta = requests.get(url)
+soup = BeautifulSoup(resposta.text, 'html.parser')
+
+# Localiza tabela e transforma em DataFrame
+tabela = soup.find('table', {'class':'wikitable'})
+df_concorrentes = pd.read_html(str(tabela))[0]
+
+# Salva como CSV
+df_concorrentes.to_csv('concorrentes.csv', index=False)
+```
+
+##  Visualizações / Dashboards
+
+### Dashboard 1 – Visão Geral de Vendas
+
+* **O que mostra:** resumo das vendas da Super Store por **categoria**, **subcategoria** e **região**.
+* **Objetivo:** permite análise rápida do desempenho por produto e região, facilitando a identificação de padrões de vendas.
+* **Link do print:** [Dash1-Rota 01](dashboards_screenshots/Dash1-Rota%2001.jpg)
+
+### Dashboard 2 – Tabelas de Dimensões
+
+* **O que mostra:** exemplos das tabelas de **dimensões** criadas, incluindo **clientes**, **produtos**, **regiões** e **modos de envio**.
+* **Objetivo:** demonstra a organização dos dados em tabelas separadas para consultas eficientes, evitando duplicidade e facilitando o ETL.
+* **Link do print:** [Dash2-Rota 01](dashboards_screenshots/Dash2-Rota%2001.jpg)
+
+---
+
+### Observações
+
+* As queries SQL são exemplos representativos do processo de **criação das tabelas** e integração dos dados.
+* O notebook Python contém o script completo para web scraping dos concorrentes.
+
+---
 
 ## Autor
 **Leticia Gama de Souza**  
