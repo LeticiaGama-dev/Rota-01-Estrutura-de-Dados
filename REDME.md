@@ -30,7 +30,7 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 ### 2. Python / Google Colab – Web Scraping
 
 
-1. Abra o notebook disponível em `notebooks/Rota01_WebScraping_Concorrentes.ipynb`.
+1. Abra o notebook disponível em `ROTAS01_ETL.ipynb`.
 2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando BeautifulSoup.
 3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
 
