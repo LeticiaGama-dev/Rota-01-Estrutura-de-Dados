@@ -14,35 +14,6 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 - **Python / Google Colab** – para web scraping (BeautifulSoup)  
 - **SQL** – linguagem utilizada nas consultas e criação das tabelas  
 
-##  Como Rodar o Projeto
-
-### 1. BigQuery – Criação de Tabelas e ETL
-1. Acesse o **Google BigQuery** e conecte-se ao dataset da **Super Store**.  
-2. Importe a tabela de vendas da Super Store.  
-3. Execute consultas SQL para:
-   - Identificar valores nulos e duplicados;  
-   - Padronizar variáveis categóricas;  
-   - Validar consistência de variáveis numéricas.  
-4. Modele e crie as **tabelas de dimensões** (clientes, produtos, regiões, modos de envio, etc.) com IDs únicos.  
-5. Crie a **tabela fato** contendo métricas de vendas, lucro, quantidade e desconto, referenciando os IDs das dimensões.  
-6. Projete o **pipeline conceitual de atualização de dados**, definindo a ordem de atualização entre as tabelas (dimensões antes da fato).
-
-### 2. Python / Google Colab – Web Scraping
-
-1. Abra o notebook disponível em [ROTAS01_ETL.ipynb](notebooks/ROTAS01_ETL.ipynb).
-2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando BeautifulSoup.
-3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
-
-### Observações
-- A tabela da Super Store é fictícia, enquanto a tabela de concorrentes foi obtida via web scraping do site wikipedia.  
-- Todas as transformações realizadas foram **conceituais**, voltadas à padronização e organização dos dados.  
-- Para reproduzir o projeto, basta seguir a sequência acima no BigQuery e executar o notebook de Python.  
-
-
-### Observações
-- Dados provenientes do dataset fictício da Super Store e de fontes públicas (Wikipedia).  
-- A limpeza realizada foi **conceitual**, voltada à padronização e estruturação dos dados para consultas.  
-- Não foram inseridos dados novos nem removidos valores nulos — apenas identificados e tratados para padronização.  
 
 ##  Estrutura e Etapas do Projeto
 
@@ -68,7 +39,6 @@ O trabalho visa também introduzir os conceitos de estruturas de dados e modelag
 - Definição da sequência de atualização das tabelas, considerando dependências;  
   - Projeção de um **pipeline conceitual** de atualização diária dos dados.  
 
----
 
 ##  Códigos / Queries Relevantes
 
@@ -133,33 +103,67 @@ df_concorrentes = pd.read_html(str(tabela))[0]
 df_concorrentes.to_csv('concorrentes.csv', index=False)
 ```
 
-##  Visualizações / Dashboards
+## Artefatos e Diagramas do Projeto
 
-### Dashboard 1 – Visão Geral de Vendas
-
+### 1. Visão Geral do Projeto
 * Apresenta uma visão geral do projeto e do conjunto de dados.
-* Função: Servir como introdução ao escopo do projeto
-* **Link do print:** [Dash1-Rota 01](dashboards_screenshots/Dash1-Rota%2001.jpg)
+* Função: Servir como introdução ao escopo do projeto.
 
-### Dashboard 2 – Tabelas de Dimensões
+![Visão Geral do Projeto](dashboards_screenshots/Dash1-Rota%2001.jpg)
 
+### 2. Diagrama do Pipeline de ETL
 * Esta imagem detalha a lógica e a ordem de execução do pipeline de dados, planejado para uma implementação futura.
 * Função: Definir o fluxo de automatização para a atualização das tabelas, garantindo a integridade e a concorrência dos dados.
-* **Link do print:** [Dash2-Rota 01](dashboards_screenshots/Dash2-Rota%2001.jpg)
 
-Dashboard 3 – Star Schema
+![Diagrama do Pipeline](dashboards_screenshots/Dash2-Rota%2001.jpg)
 
-O que mostra: modelo de tabela fato e tabelas de dimensões da Super Store.
-Objetivo: demonstra a estrutura de dados que sustenta todas as análises e dashboards, mostrando os relacionamentos 1:N entre dimensões e a tabela fato.
+### 3. Star Schema (Modelo Estrela)
+* O que mostra: modelo de tabela fato e tabelas de dimensões da Super Store.
+* Objetivo: demonstra a estrutura de dados que sustenta todas as análises e dashboards, mostrando os relacionamentos 1:N entre dimensões e a tabela fato.
 
-* **Link do print:** [Star Schema](dashboards_screenshots/Star-Schema.jpg)
----
+![Star Schema](dashboards_screenshots/Star-Schema.jpg)
+
+## Resultados e Conclusões
+
+### Resultados Obtidos
+O principal resultado deste projeto foi a **transformação de dados brutos e desestruturados em um Data Warehouse relacional, limpo e modelado**, pronto para consumo analítico.
+* **Modelo Estrela (Star Schema):** Foi implementado um modelo com uma Tabela Fato central (vendas) conectada a múltiplas Tabelas de Dimensões (clientes, produtos, regiões, etc.), otimizado para consultas de BI.
+* **Dados Limpos e Padronizados:** As inconsistências categóricas foram corrigidas, valores nulos e duplicatas foram identificados, garantindo a integridade dos dados.
+* **Integração de Dados Externos:** O processo de web scraping enriqueceu o dataset original com dados de concorrentes, permitindo análises de mercado mais robustas.
+* **Pipeline Conceitual:** Foi desenhado um fluxo de atualização (pipeline) que define a ordem correta de carga (Dimensões primeiro, Fato depois) para garantir a integridade referencial.
+
+### Conclusões e Valor de Negócio
+A estruturação dos dados realizada neste projeto não é um fim em si, mas um **facilitador estratégico** crucial.
+1. **Base para BI (Business Intelligence):** Este projeto criou a fundação essencial para análises de BI. Sem um modelo dimensional limpo, ferramentas como Power BI (usadas na Rota 02) não conseguiriam gerar insights confiáveis ou teriam performance muito baixa.
+2. **Otimização de Consultas:** A estrutura em Star Schema otimiza drasticamente o desempenho de consultas analíticas complexas, permitindo que analistas e gestores obtenham respostas mais rapidamente.
+3. **Confiabilidade e "Fonte Única da Verdade":** Ao limpar e centralizar os dados, este Data Warehouse se torna a "fonte única da verdade" (Single Source of Truth), garantindo que todos na empresa baseiem suas decisões nos mesmos números.
+4. **Escalabilidade:** O pipeline conceitual e o modelo relacional permitem que a empresa adicione novas fontes de dados ou mais registros históricos de forma organizada e escalável.
+
+
+##  Como Rodar o Projeto
+
+### 1. BigQuery – Criação de Tabelas e ETL
+1. Acesse o **Google BigQuery** e conecte-se ao dataset da **Super Store**.  
+2. Importe a tabela de vendas da Super Store.  
+3. Execute consultas SQL para:
+   - Identificar valores nulos e duplicados;  
+   - Padronizar variáveis categóricas;  
+   - Validar consistência de variáveis numéricas.  
+4. Modele e crie as **tabelas de dimensões** (clientes, produtos, regiões, modos de envio, etc.) com IDs únicos.  
+5. Crie a **tabela fato** contendo métricas de vendas, lucro, quantidade e desconto, referenciando os IDs das dimensões.  
+6. Projete o **pipeline conceitual de atualização de dados**, definindo a ordem de atualização entre as tabelas (dimensões antes da fato).
+
+### 2. Python / Google Colab – Web Scraping
+
+1. Abra o notebook disponível em [ROTAS01_ETL.ipynb](notebooks/ROTAS01_ETL.ipynb).
+2. Execute o script Python para extrair dados de concorrentes da Wikipedia utilizando BeautifulSoup.
+3. Os dados extraídos serão transformados em CSV e importados para BigQuery, integrando-se à estrutura de tabelas criada.
+
 ### Observações
-
-* As queries SQL são exemplos representativos do processo de **criação das tabelas** e integração dos dados.
-* O notebook Python contém o script completo para web scraping dos concorrentes.
-
----
+- A tabela da Super Store é fictícia, enquanto a tabela de concorrentes foi obtida via web scraping do site Wikipedia.
+- A limpeza realizada foi **conceitual**, voltada à padronização e estruturação dos dados para consultas.
+- Não foram inseridos dados novos nem removidos valores nulos — apenas identificados e tratados para padronização.
+- Para reproduzir o projeto, basta seguir a sequência acima no BigQuery e executar o notebook de Python.
 
 ## Autor
 **Leticia Gama de Souza**  
